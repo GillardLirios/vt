@@ -218,8 +218,11 @@
     <None Include="res\vt.rc2" />
   </ItemGroup>
   <ItemGroup>
+    <Image Include="image\background\bitmap2.bmp" />
     <Image Include="image\background\img105.bmp" />
     <Image Include="image\background\img105.jpg" />
+    <Image Include="image\options_48.bmp" />
+    <Image Include="image\options_48.png" />
     <Image Include="res\Toolbar.bmp" />
     <Image Include="res\Toolbar256.bmp" />
     <Image Include="res\vt.ico" />

@@ -92,5 +92,14 @@
     <Image Include="image\background\img105.jpg">
       <Filter>资源文件</Filter>
     </Image>
+    <Image Include="image\options_48.png">
+      <Filter>资源文件</Filter>
+    </Image>
+    <Image Include="image\background\bitmap2.bmp">
+      <Filter>资源文件</Filter>
+    </Image>
+    <Image Include="image\options_48.bmp">
+      <Filter>资源文件</Filter>
+    </Image>
   </ItemGroup>
 </Project>
