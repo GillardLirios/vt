@@ -11,6 +11,10 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "log4z", "..\log4z\vc2015\lo
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "cfg", "..\cfg\cfg\cfg.vcxproj", "{351910CB-A917-473B-8B2C-C75750CED15A}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Clnt", "..\NetDevelopment\CSocktServ_Clnt\Clnt\Clnt.vcxproj", "{2EDEE7A6-2507-4A8F-A669-9D437DDF2BEE}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Serv", "..\NetDevelopment\CSocktServ_Clnt\Serv\Serv.vcxproj", "{2023F65A-15AD-4568-A77A-3ED796A1D997}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -49,6 +53,18 @@ Global
 		{351910CB-A917-473B-8B2C-C75750CED15A}.Release|x64.Build.0 = Release|x64
 		{351910CB-A917-473B-8B2C-C75750CED15A}.Release|x86.ActiveCfg = Release|Win32
 		{351910CB-A917-473B-8B2C-C75750CED15A}.Release|x86.Build.0 = Release|Win32
+		{2EDEE7A6-2507-4A8F-A669-9D437DDF2BEE}.Debug|x64.ActiveCfg = Debug|Win32
+		{2EDEE7A6-2507-4A8F-A669-9D437DDF2BEE}.Debug|x86.ActiveCfg = Debug|Win32
+		{2EDEE7A6-2507-4A8F-A669-9D437DDF2BEE}.Debug|x86.Build.0 = Debug|Win32
+		{2EDEE7A6-2507-4A8F-A669-9D437DDF2BEE}.Release|x64.ActiveCfg = Release|Win32
+		{2EDEE7A6-2507-4A8F-A669-9D437DDF2BEE}.Release|x86.ActiveCfg = Release|Win32
+		{2EDEE7A6-2507-4A8F-A669-9D437DDF2BEE}.Release|x86.Build.0 = Release|Win32
+		{2023F65A-15AD-4568-A77A-3ED796A1D997}.Debug|x64.ActiveCfg = Debug|Win32
+		{2023F65A-15AD-4568-A77A-3ED796A1D997}.Debug|x86.ActiveCfg = Debug|Win32
+		{2023F65A-15AD-4568-A77A-3ED796A1D997}.Debug|x86.Build.0 = Debug|Win32
+		{2023F65A-15AD-4568-A77A-3ED796A1D997}.Release|x64.ActiveCfg = Release|Win32
+		{2023F65A-15AD-4568-A77A-3ED796A1D997}.Release|x86.ActiveCfg = Release|Win32
+		{2023F65A-15AD-4568-A77A-3ED796A1D997}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
