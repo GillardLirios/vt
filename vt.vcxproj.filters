@@ -45,6 +45,12 @@
     <ClInclude Include="CSvrSocket.h">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="CalloutDlg.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="CallinDlg.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="vt.cpp">
@@ -60,6 +66,12 @@
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="CSvrSocket.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="CalloutDlg.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="CallinDlg.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>

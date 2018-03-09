@@ -187,6 +187,8 @@
     </ResourceCompile>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="CallinDlg.h" />
+    <ClInclude Include="CalloutDlg.h" />
     <ClInclude Include="CSvrSocket.h" />
     <ClInclude Include="json11.hpp" />
     <ClInclude Include="resource.h" />
@@ -199,6 +201,8 @@
     <ClInclude Include="vtDlg.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="CallinDlg.cpp" />
+    <ClCompile Include="CalloutDlg.cpp" />
     <ClCompile Include="CSvrSocket.cpp" />
     <ClCompile Include="json11.cpp" />
     <ClCompile Include="stdafx.cpp">
