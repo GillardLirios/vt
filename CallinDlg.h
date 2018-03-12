@@ -1,7 +1,19 @@
 #pragma once
 #include <string>
 #include "C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\VC\Tools\MSVC\14.12.25827\atlmfc\include\afxwin.h"
+
 using namespace std;
+
+typedef enum
+{
+	DH_OFFLINE = 0,
+	DH_ONLINE,
+	DH_CALL_IN,
+	DH_ACTIVE,
+	DH_CALL_MISS,
+	DH_CALL_OUT,
+}DH_STATE;
+
 class t_call_info
 {
 public:
@@ -47,9 +59,16 @@ public:
 	string m_str_answer_pic;
 	string m_str_hungup_pic;
 	string m_str_active_pic;
+	string m_str_close_pic;
 	afx_msg HBRUSH OnCtlColor(CDC* pDC, CWnd* pWnd, UINT nCtlColor);
 	CBrush m_brush;
 	CStatic m_stc_answer;
 	CStatic m_stc_active;
 	CStatic m_stc_reject;
+	DH_STATE m_call_state;
+	
+	CStatic m_stc_close;
+	CStatic m_stc_call_duration;
+	afx_msg void OnTimer(UINT_PTR nIDEvent);
 };
+

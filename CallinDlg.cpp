@@ -17,7 +17,7 @@ CCallinDlg::CCallinDlg(CWnd* pParent /*=NULL*/)
 	, m_strAlarmType(_T(""))
 	, m_strAlarmInfo(_T(""))
 {
-
+	m_call_state = DH_CALL_IN;
 }
 
 CCallinDlg::~CCallinDlg()
@@ -33,6 +33,8 @@ void CCallinDlg::DoDataExchange(CDataExchange* pDX)
 	DDX_Control(pDX, IDC_STATIC_ANSWER, m_stc_answer);
 	DDX_Control(pDX, IDC_STATIC_ACTIVE, m_stc_active);
 	DDX_Control(pDX, IDC_STATIC_REJECT, m_stc_reject);
+	DDX_Control(pDX, IDC_STATIC_CLOSE, m_stc_close);
+	DDX_Control(pDX, IDC_STATIC_CALL_DURATION, m_stc_call_duration);
 }
 
 
@@ -42,6 +44,7 @@ BEGIN_MESSAGE_MAP(CCallinDlg, CDialogEx)
 	ON_STN_CLICKED(IDC_STATIC_ANSWER, &CCallinDlg::OnStnClickedStaticAnswer)
 	ON_STN_CLICKED(IDC_STATIC_REJECT, &CCallinDlg::OnStnClickedStaticReject)
 	ON_WM_CTLCOLOR()
+	ON_WM_TIMER()
 END_MESSAGE_MAP()
 
 
@@ -84,14 +87,33 @@ void CCallinDlg::OnBnClickedCancel()
 
 void CCallinDlg::OnStnClickedStaticAnswer()
 {
-	// TODO: 在此添加控件通知处理程序代码
+	switch (m_call_state)
+	{
+	case DH_CALL_IN:
+		m_stc_answer.ShowWindow(SW_HIDE);
+	//	m_stc_reject.ShowWindow(SW_HIDE);
+		m_stc_active.ShowWindow(SW_SHOW);
+		m_call_state = DH_ACTIVE;
+		SetTimer(1, 1000,NULL);
+		break;
+	default:
+		break;
+	}
+
 }
 
 
 void CCallinDlg::OnStnClickedStaticReject()
 {
-	// TODO: 在此添加控件通知处理程序代码
+
+	m_stc_answer.ShowWindow(SW_HIDE);
+	m_stc_reject.ShowWindow(SW_HIDE);
+	m_stc_active.ShowWindow(SW_HIDE);
+	m_stc_close.ShowWindow(SW_SHOW);
+	m_call_state = DH_ACTIVE;
+
 }
+
 
 
 BOOL CCallinDlg::OnInitDialog()
@@ -100,7 +122,7 @@ BOOL CCallinDlg::OnInitDialog()
 
 	// TODO:  在此添加额外的初始化
 	USES_CONVERSION;
-	CImage img1,img2,img3;
+	CImage img1,img2,img3,img4;
 	img1.Load(A2W(m_str_answer_pic.c_str()));
 	HBITMAP hbmp = img1.Detach();
 	m_stc_answer.SetBitmap(hbmp);
@@ -108,6 +130,12 @@ BOOL CCallinDlg::OnInitDialog()
 	img2.Load(A2W(m_str_active_pic.c_str()));
 	HBITMAP hbmp2 = img2.Detach();
 	m_stc_active.SetBitmap(hbmp2);
+	m_stc_active.ShowWindow(SW_HIDE);
+
+	img4.Load(A2W(m_str_close_pic.c_str()));
+	HBITMAP hbmp4 = img4.Detach();
+	m_stc_close.SetBitmap(hbmp4);
+	m_stc_close.ShowWindow(SW_HIDE);
 
 	img3.Load(A2W(m_str_hungup_pic.c_str()));
 	HBITMAP hbmp3 = img3.Detach();
@@ -143,4 +171,23 @@ HBRUSH CCallinDlg::OnCtlColor(CDC* pDC, CWnd* pWnd, UINT nCtlColor)
 	}
 	// TODO:  如果默认的不是所需画笔，则返回另一个画笔
 	return hbr;
+}
+
+
+void CCallinDlg::OnTimer(UINT_PTR nIDEvent)
+{
+	// TODO: 在此添加消息处理程序代码和/或调用默认值
+	if (1 == nIDEvent)
+	{
+		m_ci.call_duration_seconds++;
+		CString str;
+		str.Format(_T("%02d:%02d:%02d"), m_ci.call_duration_seconds / 3600,
+			(m_ci.call_duration_seconds % 3600) / 60, m_ci.call_duration_seconds % 60);
+		m_stc_call_duration.SetWindowText(str.GetBuffer());
+		CRect rc;
+		m_stc_call_duration.GetWindowRect(&rc);
+		m_stc_call_duration.GetParent()->ScreenToClient(&rc);
+		m_stc_call_duration.GetParent()->InvalidateRect(&rc);
+	}
+	CDialogEx::OnTimer(nIDEvent);
 }
