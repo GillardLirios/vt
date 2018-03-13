@@ -17,7 +17,7 @@ CCallinDlg::CCallinDlg(CWnd* pParent /*=NULL*/)
 	, m_strAlarmType(_T(""))
 	, m_strAlarmInfo(_T(""))
 {
-	m_call_state = DH_CALL_IN;
+	m_call_state.call_state = CALL_IN;
 }
 
 CCallinDlg::~CCallinDlg()
@@ -45,6 +45,7 @@ BEGIN_MESSAGE_MAP(CCallinDlg, CDialogEx)
 	ON_STN_CLICKED(IDC_STATIC_REJECT, &CCallinDlg::OnStnClickedStaticReject)
 	ON_WM_CTLCOLOR()
 	ON_WM_TIMER()
+	ON_MESSAGE(WM_RCV_HUNGUP, &CCallinDlg::OnRcvHungup)
 END_MESSAGE_MAP()
 
 
@@ -87,13 +88,13 @@ void CCallinDlg::OnBnClickedCancel()
 
 void CCallinDlg::OnStnClickedStaticAnswer()
 {
-	switch (m_call_state)
+	switch (m_call_state.call_state)
 	{
-	case DH_CALL_IN:
+	case CALL_IN:
 		m_stc_answer.ShowWindow(SW_HIDE);
-	//	m_stc_reject.ShowWindow(SW_HIDE);
-		m_stc_active.ShowWindow(SW_SHOW);
-		m_call_state = DH_ACTIVE;
+		m_stc_reject.ShowWindow(SW_HIDE);
+		m_stc_close.ShowWindow(SW_SHOW);
+		m_call_state.call_state = CALL_ONGOING;
 		SetTimer(1, 1000,NULL);
 		break;
 	default:
@@ -109,8 +110,8 @@ void CCallinDlg::OnStnClickedStaticReject()
 	m_stc_answer.ShowWindow(SW_HIDE);
 	m_stc_reject.ShowWindow(SW_HIDE);
 	m_stc_active.ShowWindow(SW_HIDE);
-	m_stc_close.ShowWindow(SW_SHOW);
-	m_call_state = DH_ACTIVE;
+	m_stc_close.ShowWindow(SW_HIDE);
+	m_call_state.call_state = CALL_CLOSE;
 
 }
 
@@ -190,4 +191,10 @@ void CCallinDlg::OnTimer(UINT_PTR nIDEvent)
 		m_stc_call_duration.GetParent()->InvalidateRect(&rc);
 	}
 	CDialogEx::OnTimer(nIDEvent);
+}
+
+
+afx_msg LRESULT CCallinDlg::OnRcvHungup(WPARAM wParam, LPARAM lParam)
+{
+	return 0;
 }

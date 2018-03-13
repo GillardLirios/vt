@@ -51,6 +51,9 @@
     <ClInclude Include="CallinDlg.h">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="DataEntities.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="vt.cpp">
@@ -72,6 +75,9 @@
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="CallinDlg.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="DataEntities.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>
@@ -117,6 +123,15 @@
       <Filter>资源文件</Filter>
     </Image>
     <Image Include="image\options_48.bmp">
+      <Filter>资源文件</Filter>
+    </Image>
+    <Image Include="image\background\bitmap3.bmp">
+      <Filter>资源文件</Filter>
+    </Image>
+    <Image Include="image\201635822309260137.bmp">
+      <Filter>资源文件</Filter>
+    </Image>
+    <Image Include="image\main_bk.bmp">
       <Filter>资源文件</Filter>
     </Image>
   </ItemGroup>

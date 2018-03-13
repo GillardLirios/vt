@@ -1,31 +1,8 @@
 #pragma once
-#include <string>
+
 #include "C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\VC\Tools\MSVC\14.12.25827\atlmfc\include\afxwin.h"
+#include "DataEntities.h"
 
-using namespace std;
-
-typedef enum
-{
-	DH_OFFLINE = 0,
-	DH_ONLINE,
-	DH_CALL_IN,
-	DH_ACTIVE,
-	DH_CALL_MISS,
-	DH_CALL_OUT,
-}DH_STATE;
-
-class t_call_info
-{
-public:
-	string call_number_from;
-	string call_number_to;
-	string callin_time;
-	int call_duration_seconds;
-	string record_path;
-	string alarm_info;
-	string alarm_type;
-	string car_plate_number;
-};
 // CCallinDlg ¶Ô»°¿ò
 
 class CCallinDlg : public CDialogEx
@@ -65,10 +42,12 @@ public:
 	CStatic m_stc_answer;
 	CStatic m_stc_active;
 	CStatic m_stc_reject;
-	DH_STATE m_call_state;
+	t_dh_state m_call_state;
 	
 	CStatic m_stc_close;
 	CStatic m_stc_call_duration;
 	afx_msg void OnTimer(UINT_PTR nIDEvent);
+protected:
+	afx_msg LRESULT OnRcvHungup(WPARAM wParam, LPARAM lParam);
 };
 
