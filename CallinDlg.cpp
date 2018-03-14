@@ -5,7 +5,7 @@
 #include "vt.h"
 #include "CallinDlg.h"
 #include "afxdialogex.h"
-
+#include "CSvrSocket.h"
 
 // CCallinDlg 对话框
 
@@ -31,7 +31,7 @@ void CCallinDlg::DoDataExchange(CDataExchange* pDX)
 	DDX_Text(pDX, IDC_EDIT_ALARM_TYPE, m_strAlarmType);
 	DDX_Text(pDX, IDC_EDIT_ALARM_INFO, m_strAlarmInfo);
 	DDX_Control(pDX, IDC_STATIC_ANSWER, m_stc_answer);
-	DDX_Control(pDX, IDC_STATIC_ACTIVE, m_stc_active);
+//	DDX_Control(pDX, IDC_STATIC_ACTIVE, m_stc_active);
 	DDX_Control(pDX, IDC_STATIC_REJECT, m_stc_reject);
 	DDX_Control(pDX, IDC_STATIC_CLOSE, m_stc_close);
 	DDX_Control(pDX, IDC_STATIC_CALL_DURATION, m_stc_call_duration);
@@ -45,7 +45,8 @@ BEGIN_MESSAGE_MAP(CCallinDlg, CDialogEx)
 	ON_STN_CLICKED(IDC_STATIC_REJECT, &CCallinDlg::OnStnClickedStaticReject)
 	ON_WM_CTLCOLOR()
 	ON_WM_TIMER()
-	ON_MESSAGE(WM_RCV_HUNGUP, &CCallinDlg::OnRcvHungup)
+	ON_MESSAGE(WM_CALLIN_MSG, &CCallinDlg::OnRcvHungup)
+	ON_STN_CLICKED(IDC_STATIC_CLOSE, &CCallinDlg::OnStnClickedStaticClose)
 END_MESSAGE_MAP()
 
 
@@ -95,7 +96,7 @@ void CCallinDlg::OnStnClickedStaticAnswer()
 		m_stc_reject.ShowWindow(SW_HIDE);
 		m_stc_close.ShowWindow(SW_SHOW);
 		m_call_state.call_state = CALL_ONGOING;
-		SetTimer(1, 1000,NULL);
+		SetTimer(TIMER_CALL_DURATION_CNT, 1000,NULL);
 		break;
 	default:
 		break;
@@ -109,7 +110,7 @@ void CCallinDlg::OnStnClickedStaticReject()
 
 	m_stc_answer.ShowWindow(SW_HIDE);
 	m_stc_reject.ShowWindow(SW_HIDE);
-	m_stc_active.ShowWindow(SW_HIDE);
+//	m_stc_active.ShowWindow(SW_HIDE);
 	m_stc_close.ShowWindow(SW_HIDE);
 	m_call_state.call_state = CALL_CLOSE;
 
@@ -127,12 +128,7 @@ BOOL CCallinDlg::OnInitDialog()
 	img1.Load(A2W(m_str_answer_pic.c_str()));
 	HBITMAP hbmp = img1.Detach();
 	m_stc_answer.SetBitmap(hbmp);
-
-	img2.Load(A2W(m_str_active_pic.c_str()));
-	HBITMAP hbmp2 = img2.Detach();
-	m_stc_active.SetBitmap(hbmp2);
-	m_stc_active.ShowWindow(SW_HIDE);
-
+	
 	img4.Load(A2W(m_str_close_pic.c_str()));
 	HBITMAP hbmp4 = img4.Detach();
 	m_stc_close.SetBitmap(hbmp4);
@@ -178,7 +174,7 @@ HBRUSH CCallinDlg::OnCtlColor(CDC* pDC, CWnd* pWnd, UINT nCtlColor)
 void CCallinDlg::OnTimer(UINT_PTR nIDEvent)
 {
 	// TODO: 在此添加消息处理程序代码和/或调用默认值
-	if (1 == nIDEvent)
+	if (TIMER_CALL_DURATION_CNT == nIDEvent)
 	{
 		m_ci.call_duration_seconds++;
 		CString str;
@@ -196,5 +192,30 @@ void CCallinDlg::OnTimer(UINT_PTR nIDEvent)
 
 afx_msg LRESULT CCallinDlg::OnRcvHungup(WPARAM wParam, LPARAM lParam)
 {
+	CSvrSocket* pservSock = (CSvrSocket*)wParam;
+	int recvLen;
+	char buf[BUF_SIZE];
+	memset(buf, 0, BUF_SIZE);
+	int strLen = pservSock->Receive(buf, BUF_SIZE, 0);
+	t_call_protocol cp;
+	if (rcvbuf_to_obj(buf, cp))
+	{
+		return -1;
+	}
+	if (CMD_CALL_HUNGUP == cp.cmd)
+	{
+		OnStnClickedStaticClose();
+	}
+	pservSock->Send(buf, strLen, 0);
+	int dh_id = buf[0] - '0';
 	return 0;
+}
+
+
+void CCallinDlg::OnStnClickedStaticClose()
+{
+	// TODO: 在此添加控件通知处理程序代码
+	KillTimer(TIMER_CALL_DURATION_CNT);
+	m_call_state.call_state = CALL_CLOSE;
+	m_stc_close.ShowWindow(SW_HIDE);
 }

@@ -4,7 +4,8 @@
 #include "DataEntities.h"
 
 // CCallinDlg ¶Ô»°¿ò
-
+#define TIMER_CALL_DURATION_CNT	1
+//#define TIMER_CALL_DURATION_CNT	2
 class CCallinDlg : public CDialogEx
 {
 	DECLARE_DYNAMIC(CCallinDlg)
@@ -40,7 +41,7 @@ public:
 	afx_msg HBRUSH OnCtlColor(CDC* pDC, CWnd* pWnd, UINT nCtlColor);
 	CBrush m_brush;
 	CStatic m_stc_answer;
-	CStatic m_stc_active;
+	//CStatic m_stc_active;
 	CStatic m_stc_reject;
 	t_dh_state m_call_state;
 	
@@ -49,5 +50,7 @@ public:
 	afx_msg void OnTimer(UINT_PTR nIDEvent);
 protected:
 	afx_msg LRESULT OnRcvHungup(WPARAM wParam, LPARAM lParam);
+public:
+	afx_msg void OnStnClickedStaticClose();
 };
 

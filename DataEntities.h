@@ -3,17 +3,24 @@
 #include "../cfg/cfg/Config.h"
 #include <vector>
 #include "../json11/json11.hpp"
-
+#include "../log4z/log4z.h" 
+#define BUF_SIZE 1024
+using namespace zsummer::log4z;
 using namespace json11;
+using std::string;
+using namespace std;
+
 class DataEntities
 {
 public:
 	DataEntities();
 	~DataEntities();
+	
 };
 
+
 #define WM_SVR_SOCKET WM_USER+1
-#define WM_RCV_HUNGUP WM_USER+21
+#define WM_CALLIN_MSG WM_USER+21
 using namespace std;
 
 typedef enum
@@ -58,6 +65,7 @@ using namespace cfg;
 using namespace std;
 class t_config {
 public:
+	string str_title_img_path;
 	string str_dh_online_img_path;
 	string str_dh_offline_img_path;
 	string str_dh_callin_img_path;
@@ -80,6 +88,7 @@ public:
 	CRect  rcOptionButton;
 	int dh_count;
 	int gb_count;
+	CRect rc_title;
 	CRect DH[30];
 	CRect GB[30];
 	string str_dh_name[30];
@@ -114,9 +123,14 @@ typedef enum {
 	DOOR_CLOSE = 0,
 	DOOR_OPEN,
 }T_STATE;
+
+
 class t_call_protocol {
+public:
 	int dev_id;
 	T_MSG_TYPE type;
 	T_CMD cmd;
 	T_STATE door_state;
 };
+
+int rcvbuf_to_obj(char* buf, t_call_protocol& cp);
