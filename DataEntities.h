@@ -5,6 +5,7 @@
 #include "../json11/json11.hpp"
 #include "../log4z/log4z.h" 
 #define BUF_SIZE 1024
+
 using namespace zsummer::log4z;
 using namespace json11;
 using std::string;
@@ -99,6 +100,7 @@ public:
 	int dh_local_svr_port;
 	int dh_remote_wav_port;
 	int dh_local_wav_port;
+	string rec_path;
 };
 
 class t_call_history

@@ -1,6 +1,17 @@
 {
-  "dev_id": 1,
-  "msg_type": "req",
-  "cmd": "call_req",
-  "state": "door_close"
+  "msgs": [
+    {
+      "dev_id": 1,
+      "msg_type": "req",
+      "cmd": "call_req",
+      "state": "door_close"
+    },
+
+    {
+      "dev_id": 1,
+      "msg_type": "req",
+      "cmd": "call_hungup",
+      "state": "door_close"
+    }
+  ]
 }

@@ -31,10 +31,11 @@ void CCallinDlg::DoDataExchange(CDataExchange* pDX)
 	DDX_Text(pDX, IDC_EDIT_ALARM_TYPE, m_strAlarmType);
 	DDX_Text(pDX, IDC_EDIT_ALARM_INFO, m_strAlarmInfo);
 	DDX_Control(pDX, IDC_STATIC_ANSWER, m_stc_answer);
-//	DDX_Control(pDX, IDC_STATIC_ACTIVE, m_stc_active);
+	//	DDX_Control(pDX, IDC_STATIC_ACTIVE, m_stc_active);
 	DDX_Control(pDX, IDC_STATIC_REJECT, m_stc_reject);
 	DDX_Control(pDX, IDC_STATIC_CLOSE, m_stc_close);
 	DDX_Control(pDX, IDC_STATIC_CALL_DURATION, m_stc_call_duration);
+	DDX_Control(pDX, IDC_STATIC_CALL_FROM, m_stcCallFrom);
 }
 
 
@@ -82,8 +83,8 @@ void CCallinDlg::OnBnClickedOk()
 void CCallinDlg::OnBnClickedCancel()
 {
 	// TODO: 在此添加控件通知处理程序代码
-	return;
-	CDialogEx::OnCancel();
+	//return;
+                  	CDialogEx::OnCancel();
 }
 
 
@@ -137,6 +138,8 @@ BOOL CCallinDlg::OnInitDialog()
 	img3.Load(A2W(m_str_hungup_pic.c_str()));
 	HBITMAP hbmp3 = img3.Detach();
 	m_stc_reject.SetBitmap(hbmp3);
+
+	m_stcCallFrom.SetWindowText(A2W(m_ci.call_number_from.c_str()));
 
 	CBitmap bmp;
 	bmp.LoadBitmap(IDB_BITMAP1);   //IDB_BITMAP1是图片资源ID  

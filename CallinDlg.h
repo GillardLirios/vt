@@ -52,5 +52,6 @@ protected:
 	afx_msg LRESULT OnRcvHungup(WPARAM wParam, LPARAM lParam);
 public:
 	afx_msg void OnStnClickedStaticClose();
+	CStatic m_stcCallFrom;
 };
 
