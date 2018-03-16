@@ -187,6 +187,7 @@
     </ResourceCompile>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="CallHistoryDlg.h" />
     <ClInclude Include="CallinDlg.h" />
     <ClInclude Include="CalloutDlg.h" />
     <ClInclude Include="CSvrSocket.h" />
@@ -202,6 +203,7 @@
     <ClInclude Include="vtDlg.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="CallHistoryDlg.cpp" />
     <ClCompile Include="CallinDlg.cpp" />
     <ClCompile Include="CalloutDlg.cpp" />
     <ClCompile Include="CSvrSocket.cpp" />

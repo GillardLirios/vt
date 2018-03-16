@@ -54,6 +54,9 @@
     <ClInclude Include="DataEntities.h">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="CallHistoryDlg.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="vt.cpp">
@@ -78,6 +81,9 @@
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="DataEntities.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="CallHistoryDlg.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>
