@@ -2,6 +2,7 @@
 #include <string>
 #include "../cfg/cfg/Config.h"
 #include <vector>
+#include <map>
 #include "../json11/json11.hpp"
 #include "../log4z/log4z.h" 
 #define BUF_SIZE 1024
