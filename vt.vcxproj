@@ -193,6 +193,7 @@
     <ClInclude Include="CSvrSocket.h" />
     <ClInclude Include="DataEntities.h" />
     <ClInclude Include="json11.hpp" />
+    <ClInclude Include="PcmSender.h" />
     <ClInclude Include="resource.h" />
     <ClInclude Include="resource1.h" />
     <ClInclude Include="resource2.h" />
@@ -209,6 +210,7 @@
     <ClCompile Include="CSvrSocket.cpp" />
     <ClCompile Include="DataEntities.cpp" />
     <ClCompile Include="json11.cpp" />
+    <ClCompile Include="PcmSender.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
