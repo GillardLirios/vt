@@ -8,13 +8,24 @@ class CPcmSender
 public:
 	CPcmSender();
 	~CPcmSender();
-	int m_Port;
-	uint8_t m_u8pcm_buf[2 + 32 + 1280];
+	string m_ip;
+	int m_port;
+	
 	int worker_thread_sender();
 	int worker_thread_capture();
-	int call_worker(void* ptr);
+
 	int start();
 	int stop();
-	std::mutex	m_mutex_q_send;
+
+	std::thread m_thd_worker_capture;
+
+	T_PCM_FRAME m_pcm_frame;
+	std::mutex	m_mutex_frame;
+
+	int m_cv_exit;
+	std::mutex m_mutex_cv_exit;
+
+	int update_frame_header(T_PCM_HEADER* header);
+
 };
 

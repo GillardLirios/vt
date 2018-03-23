@@ -36,18 +36,18 @@ typedef enum
 	CALL_ONGOING,
 	CALL_MISS,
 	CALL_OUT,
-}DEV_STATE;
+}T_DEV_STATE;
 
 
 typedef struct
 {
-	DEV_STATE comm_state;
-	DEV_STATE call_state;
+	T_DEV_STATE comm_state;
+	T_DEV_STATE call_state;
 }t_dh_state;
 typedef struct
 {
-	DEV_STATE comm_state;
-	DEV_STATE pa_state;
+	T_DEV_STATE comm_state;
+	T_DEV_STATE pa_state;
 }t_gb_state;
 
 class t_call_info
@@ -137,3 +137,23 @@ public:
 };
 
 int rcvbuf_to_obj(char* buf, t_call_protocol& cp);
+
+
+union T_PCM_HEADER{
+	struct {
+		uint8_t flag;
+		uint8_t seq;
+		uint8_t spk_sw[32];
+	};
+	uint8_t buf_header[34];
+};
+
+union T_PCM_FRAME {
+	struct {
+		T_PCM_HEADER header;
+		uint8_t pcm_data;
+	};
+	uint8_t buf[2 + 32 + 1280];	
+};
+
+void set_pcm_header(T_PCM_HEADER* pheader, int id, T_DEV_STATE state);

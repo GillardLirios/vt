@@ -1,10 +1,12 @@
 #include "stdafx.h"
 #include "PcmSender.h"
 
-
+int call_worker(void* ptr);
 CPcmSender::CPcmSender()
-	: m_Port(0)
+	: m_port(0)
 {
+	m_ip = "255.255.255.255";
+	m_cv_exit = 0;
 	LOGFMTT("");
 }
 
@@ -27,19 +29,33 @@ int CPcmSender::worker_thread_sender()
 }
 int CPcmSender::worker_thread_capture()
 {
-	LOGFMTT("");
+	LOGFMTT("start");
 	while (1)
 	{
-		Sleep(20);
+		unique_lock <mutex> lk_frame(m_mutex_frame);
+		
+
+		
+
+		unique_lock <mutex> lk_exit(m_mutex_cv_exit);
+		if(m_cv_exit)
+		{
+			LOGFMTT("thread will exit");
+			break;
+		}
+
+		this_thread::sleep_for(std::chrono::milliseconds(20));
 	}
-	LOGFMTT("");
+	LOGFMTT("exit");
 	return 0;
 }
 
 
-int CPcmSender::call_worker(void* ptr)
+int call_worker(void* ptr)
 {
 	LOGFMTT("");
+	CPcmSender* pobj = (CPcmSender*)ptr;
+	pobj->worker_thread_capture();
 	return 0;
 }
 
@@ -47,11 +63,24 @@ int CPcmSender::call_worker(void* ptr)
 int CPcmSender::start()
 {
 	LOGFMTT("");
+	m_thd_worker_capture = std::thread(call_worker,this);
+	m_thd_worker_capture.detach();
 	return 0;
 }
 
 
 int CPcmSender::stop()
 {
+	LOGFMTT("");
+	return 0;
+}
+
+
+int CPcmSender::update_frame_header(T_PCM_HEADER* header)
+{
+	LOGFMTT("");
+	m_mutex_frame.lock();
+	memcpy(m_pcm_frame.buf, header->buf_header, sizeof(header));
+	m_mutex_frame.unlock();
 	return 0;
 }

@@ -119,7 +119,7 @@ int CCallHistoryDlg::load_call_history()
 	sort(time.begin(), time.end());
 	m_cis.clear();
 	USES_CONVERSION;
-	for (int i = 0; i < time.size(); i++)
+	for (unsigned int i = 0; i < time.size(); i++)
 	{
 		CString str;
 		m_cis.push_back(mapHistory[time[i]]);

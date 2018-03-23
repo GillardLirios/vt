@@ -196,7 +196,7 @@ void CCallinDlg::OnTimer(UINT_PTR nIDEvent)
 afx_msg LRESULT CCallinDlg::OnRcvHungup(WPARAM wParam, LPARAM lParam)
 {
 	CSvrSocket* pservSock = (CSvrSocket*)wParam;
-	int recvLen;
+//	int recvLen;
 	char buf[BUF_SIZE];
 	memset(buf, 0, BUF_SIZE);
 	int strLen = pservSock->Receive(buf, BUF_SIZE, 0);
